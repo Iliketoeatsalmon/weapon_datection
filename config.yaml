@@ -1,0 +1,36 @@
+model:
+  model_path: "best.pt"   # <-- ใส่ path โมเดลของคุณ
+  img_size: 640
+  conf_th: 0.45
+  iou_th: 0.45
+  weapon_names:
+    - knife
+    - handgun
+    - rifle
+    - bomb
+
+video:
+  source: 0               # 0 = webcam, หรือ "rtsp://..."
+  width: 640
+  height: 480
+
+alert:
+  cooldown_sec: 45        # หน่วงเวลาระหว่าง alert
+  history_len: 10         # เก็บผลตรวจ N เฟรมล่าสุด
+  min_weapon_frames: 3    # ต้องเจออาวุธอย่างน้อยกี่เฟรมใน history ถึงจะยิง alert
+
+telegram:
+  bot_token: "YOUR_BOT_TOKEN"   # <-- แก้เป็น token จริง
+  chat_id: "YOUR_CHAT_ID"       # <-- แก้เป็น chat id จริง
+  timeout: 10
+
+logging:
+  log_csv: "detections.csv"
+  crop_dir: "crops"
+  enable_crop_save: true
+
+hud:
+  show_window: true
+  window_name: "Weapon Detection (Advanced)"
+  font_scale: 0.6
+  font_thickness: 2
