@@ -12,8 +12,29 @@ class WeaponDetector:
         self.cfg = cfg
         print("[Detector] Loading model:", self.cfg.model_path)
         self.model = YOLO(self.cfg.model_path)
-        self.class_names = self.model.names
+        raw_names = self.model.names
+        # Ultralytics may return class names as dict or list depending on version/model.
+        self.class_names = raw_names if isinstance(raw_names, dict) else {i: n for i, n in enumerate(raw_names)}
+        self.model_names_norm = {str(name).strip().lower() for name in self.class_names.values()}
+        self.name_aliases = {
+            "handgun": "pistol",
+            "gun": "pistol",
+            "bomb": "grenade",
+        }
+        self.allowed_weapon_names = set()
+        for name in self.cfg.weapon_names:
+            norm_name = str(name).strip().lower()
+            mapped_name = self.name_aliases.get(norm_name, norm_name)
+            self.allowed_weapon_names.add(mapped_name)
+
         print("[Detector] Model classes:", self.class_names)
+        unknown = sorted(self.allowed_weapon_names - self.model_names_norm)
+        if unknown:
+            print(
+                "[Detector][WARN] weapon_names not found in model classes:",
+                unknown,
+            )
+            print("[Detector][WARN] Use names from model classes above.")
 
     def detect(self, frame_bgr) -> List[Detection]:
         """
@@ -35,7 +56,7 @@ class WeaponDetector:
             x1, y1, x2, y2 = map(int, box.xyxy[0])
             cls_name = self.class_names.get(cls_id, str(cls_id))
 
-            if cls_name not in self.cfg.weapon_names:
+            if cls_name.strip().lower() not in self.allowed_weapon_names:
                 continue
 
             detections.append((cls_name, conf, x1, y1, x2, y2))

@@ -1,13 +1,13 @@
 model:
   model_path: "best.pt"   # <-- ใส่ path โมเดลของคุณ
   img_size: 640
-  conf_th: 0.45
+  conf_th: 0.25           # ลด threshold ตอนทดสอบให้ติดง่ายขึ้น
   iou_th: 0.45
   weapon_names:
+    - grenade
     - knife
-    - handgun
+    - pistol
     - rifle
-    - bomb
 
 video:
   source: 0               # 0 = webcam, หรือ "rtsp://..."
@@ -15,13 +15,13 @@ video:
   height: 480
 
 alert:
-  cooldown_sec: 45        # หน่วงเวลาระหว่าง alert
+  cooldown_sec: 15        # หน่วงเวลาระหว่าง alert
   history_len: 10         # เก็บผลตรวจ N เฟรมล่าสุด
-  min_weapon_frames: 3    # ต้องเจออาวุธอย่างน้อยกี่เฟรมใน history ถึงจะยิง alert
+  min_weapon_frames: 1    # ต้องเจออาวุธอย่างน้อยกี่เฟรมใน history ถึงจะยิง alert
 
 telegram:
-  bot_token: "YOUR_BOT_TOKEN"   # <-- แก้เป็น token จริง
-  chat_id: "YOUR_CHAT_ID"       # <-- แก้เป็น chat id จริง
+  bot_token: "8165455610:AAEpBxpYMnA95-pjkIdBoQFug6xpUNuIAvY"
+  chat_id: "8185692729"       # <-- แก้เป็น chat id จริง
   timeout: 10
 
 logging:
