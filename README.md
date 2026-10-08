@@ -1,9 +1,17 @@
 # Weapon Detection
 
+![CI](https://github.com/Iliketoeatsalmon/weapon_datection/actions/workflows/ci.yml/badge.svg)
+
 ระบบตรวจจับอาวุธแบบ real-time ด้วย YOLO11 จากกล้อง/RTSP แล้วแจ้งเตือนผ่าน Telegram
 Real-time weapon detection (YOLO11) with Telegram alerts.
 
 **คลาสที่ตรวจได้:** `grenade`, `knife`, `pistol`, `rifle`
+
+## ผลการเทรน
+YOLO11m, 200 epochs — precision 0.983, recall 0.952, mAP50 0.978, mAP50-95 0.815 (validation)
+
+![training results](docs/training_results.png)
+![confusion matrix](docs/confusion_matrix.png)
 
 ## วิธีทำงาน
 กล้อง → `VideoStream` → `WeaponDetector` (YOLO) → `AlertManager` (cooldown + history)
@@ -33,3 +41,6 @@ config.yaml             ตั้งค่า (ไม่มี secret)
 ```bash
 pytest && ruff check .
 ```
+
+## License
+MIT — ดู [LICENSE](LICENSE)
