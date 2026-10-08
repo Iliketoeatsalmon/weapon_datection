@@ -20,8 +20,8 @@ alert:
   min_weapon_frames: 1    # ต้องเจออาวุธอย่างน้อยกี่เฟรมใน history ถึงจะยิง alert
 
 telegram:
-  bot_token: "8165455610:AAEpBxpYMnA95-pjkIdBoQFug6xpUNuIAvY"
-  chat_id: "8185692729"       # <-- แก้เป็น chat id จริง
+  bot_token: ""     # ตั้งผ่าน env TELEGRAM_BOT_TOKEN (ดู .env.example)
+  chat_id: ""       # ตั้งผ่าน env TELEGRAM_CHAT_ID
   timeout: 10
 
 logging:

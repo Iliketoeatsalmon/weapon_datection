@@ -1,4 +1,7 @@
+import os
+
 import yaml
+from dotenv import load_dotenv
 from dataclasses import dataclass
 from typing import List, Union
 
@@ -59,8 +62,14 @@ class AppConfig:
 
 
 def load_config(path: str = "config.yaml") -> AppConfig:
+    load_dotenv()
     with open(path, "r") as f:
         data = yaml.safe_load(f)
+
+    # Secrets come from the environment, never from the committed YAML.
+    tg = data["telegram"]
+    tg["bot_token"] = os.getenv("TELEGRAM_BOT_TOKEN", tg.get("bot_token", ""))
+    tg["chat_id"] = os.getenv("TELEGRAM_CHAT_ID", tg.get("chat_id", ""))
 
     return AppConfig(
         model=ModelConfig(**data["model"]),
