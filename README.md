@@ -11,11 +11,25 @@ Real-time weapon detection (YOLO11) with Telegram alerts.
 
 ## เริ่มใช้งาน
 ```bash
-pip install -r requirements.txt
+pip install -e ".[dev]"
 cp .env.example .env        # ใส่ TELEGRAM_BOT_TOKEN และ TELEGRAM_CHAT_ID
-python main.py              # กด ESC เพื่อออก
+python -m weapon_detection      # กด ESC เพื่อออก
 ```
 ปรับค่าต่างๆ (กล้อง, threshold, cooldown) ใน `config.yaml`
 
 ## ความปลอดภัย
 อย่า commit `.env` หรือ token ลง git. ถ้า token เคยหลุด ให้ revoke ที่ @BotFather ทันที
+
+## โครงสร้างโปรเจกต์
+```
+src/weapon_detection/   โค้ดหลัก (app, detector, alert, hud, logger, telegram_client, video_stream, config)
+tests/                  pytest
+models/best.pt          โมเดลที่เทรนแล้ว
+docs/                   กราฟผลเทรน
+config.yaml             ตั้งค่า (ไม่มี secret)
+```
+
+## ทดสอบ
+```bash
+pytest && ruff check .
+```

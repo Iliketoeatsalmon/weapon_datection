@@ -1,5 +1,5 @@
 model:
-  model_path: "best.pt"   # <-- ใส่ path โมเดลของคุณ
+  model_path: "models/best.pt"   # <-- ใส่ path โมเดลของคุณ
   img_size: 640
   conf_th: 0.25           # ลด threshold ตอนทดสอบให้ติดง่ายขึ้น
   iou_th: 0.45
@@ -17,7 +17,7 @@ video:
 alert:
   cooldown_sec: 15        # หน่วงเวลาระหว่าง alert
   history_len: 10         # เก็บผลตรวจ N เฟรมล่าสุด
-  min_weapon_frames: 1    # ต้องเจออาวุธอย่างน้อยกี่เฟรมใน history ถึงจะยิง alert
+  min_weapon_frames: 3    # ต้องเจออาวุธอย่างน้อยกี่เฟรมใน history ถึงจะยิง alert (กัน false positive)
 
 telegram:
   bot_token: ""     # ตั้งผ่าน env TELEGRAM_BOT_TOKEN (ดู .env.example)
